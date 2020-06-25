@@ -1,0 +1,24 @@
+{
+  "name": "e2e-tests",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "tsc": "node_modules/.bin/tsc"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "mocha": "^6.2.2",
+    "slnodejs": "^4.0.374",
+    "superagent": "^5.2.2",
+    "supertest": "^4.0.2",
+    "typescript": "3.5.2",
+    "ts-node": "^7.0.1"
+  },
+  "devDependencies": {
+    "@types/mocha": "^2.2.39"
+  }
+}

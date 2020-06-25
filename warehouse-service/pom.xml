@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.demo.warehouse</groupId>
+    <artifactId>warehouse-service</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>product-catalog</module>
+        <module>shipping</module>
+        <module>orders</module>
+        <module>warehouse</module>
+    </modules>
+    <packaging>pom</packaging>
+
+    <properties>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.19.1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.19.1</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <argLine>@{sealightsArgLine} -Dsl.testStage="Integration Tests" -Dsl.tia.useModuleName=true</argLine>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>sl</id>
+            <build>
+                <finalName>warehouse-service-${sl.build}</finalName>
+                <plugins>
+                    <plugin>
+                        <groupId>io.sealights.on-premise.agents.plugin</groupId>
+                        <artifactId>sealights-maven-plugin</artifactId>
+                        <version>2.1.660</version>
+                        <configuration>
+                            <tokenFile>${sl.token}</tokenFile>
+                            <createBuildSessionId>true</createBuildSessionId>
+                            <appName>warehouse-service</appName>
+                            <workspacepath>${project.build.outputDirectory}</workspacepath>
+                            <build>${sl.build}</build>
+                            <branch>master</branch>
+                            <packagesincluded>*com.demo.warehouse*</packagesincluded>
+                            <filesincluded>*.class</filesincluded>
+                            <testStage>Unit Tests</testStage>
+                            <filesexcluded>*test-classes*</filesexcluded>
+                            <logLevel>DEBUG</logLevel>
+                            <logFolder>/tmp</logFolder>
+                            <includeResources>true</includeResources>
+                            <testListenerJar>${sl.test-listener.path}</testListenerJar>
+                            <buildScannerJar>${sl.build-scanner.path}</buildScannerJar>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>a1</id>
+                                <goals>
+                                    <goal>build-scanner</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>a2</id>
+                                <goals>
+                                    <goal>test-listener</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>a3</id>
+                                <goals>
+                                    <goal>prepare-test-listener</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+</project>

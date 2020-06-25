@@ -1,0 +1,4 @@
+[
+  {"appName":"warehouse-service","branch":"master","build":"ws10"},
+  {"appName":"product-reviews","branch":"master","build":"pr7"}
+]

@@ -1,0 +1,13 @@
+**/target
+sl-build-scanner.jar
+sl-test-listener.jar
+sl-token.txt
+repository
+*.iml
+.idea
+node_modules
+.nyc_output
+tsOutputs
+buildSessionId
+package-lock.json
+*.log
